@@ -941,6 +941,12 @@ body {
   color: var(--ink-3);
 }
 
+.lineage-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* ---------- 页脚 ---------- */
 .footer {
   border-top: 1px solid var(--line);
