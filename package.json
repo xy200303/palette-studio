@@ -1,0 +1,19 @@
+{
+  "name": "palette-studio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TDesign 犀鸟鸟 2026 实战：感知均匀的色阶引擎与演示站",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "dev": "pnpm --filter demo dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
