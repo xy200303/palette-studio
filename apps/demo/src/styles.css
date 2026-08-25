@@ -569,6 +569,36 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* TDesign Progress：bar 占满后再加右侧 label 会溢出卡片，约束为弹性收缩 */
+.live-card .t-progress {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-card .t-progress__inner,
+.live-card .t-progress__bar {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+}
+
+.live-card .t-progress__info {
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+/* 分页卡片内容右对齐时溢出向左穿透，强制左对齐并可收缩 */
+.live-card .t-pagination {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .live-card.span2 {

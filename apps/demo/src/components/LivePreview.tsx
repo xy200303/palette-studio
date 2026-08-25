@@ -148,6 +148,9 @@ export default function LivePreview({ theme }: { theme: ThemeResult }) {
               current={page}
               onChange={(p) => setPage(p.current)}
               size="small"
+              maxPageBtn={7}
+              showPageSize={false}
+              showJumper={false}
             />
           </div>
 
