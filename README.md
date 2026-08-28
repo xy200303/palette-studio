@@ -10,8 +10,17 @@
 ## 作为依赖使用
 
 ```bash
-# 直接从 GitHub 安装（包即仓库根）
+# 直接从 GitHub 安装（包即仓库根，安装时自动构建 dist）
+npm install github:xy200303/palette-studio
+# 或 pnpm（需在项目 pnpm-workspace.yaml 中将本包加入构建白名单）
 pnpm add github:xy200303/palette-studio
+```
+
+pnpm 出于安全策略默认拦截 git 依赖的构建脚本，在项目的 `pnpm-workspace.yaml` 加一行即可：
+
+```yaml
+onlyBuiltDependencies:
+  - "@palette-studio/core"
 ```
 
 ```ts
