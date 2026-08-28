@@ -12,9 +12,9 @@
 构建产物 `dist/` 已随仓库发布，安装即可用，无需任何构建脚本或额外配置：
 
 ```bash
-npm install github:xy200303/shise-engine
+npm install github:xy200303/shise-engine#v1.0.0
 # 或
-pnpm add github:xy200303/shise-engine
+pnpm add github:xy200303/shise-engine#v1.0.0
 ```
 
 ```ts
