@@ -5,6 +5,8 @@ export { toTDesignTokens, tokensToCss } from './tokens';
 export { contrastRatio, apcaContrast, bestTextOn, wcagLevel, accessibleTextLevel, usageHint } from './contrast';
 export type { UsageRole } from './contrast';
 export { HUE_ZONES, findZone } from './curves';
+export { differenceCiede2000, converter } from './culori';
+export type { Oklch } from './culori';
 export type {
   HarmonyResult,
   PaletteOptions,
