@@ -27,11 +27,11 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install
-      - run: pnpm --filter @palette-studio/core build
+      - run: pnpm build
       - run: pnpm --filter demo build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/demo/dist
+          path: demo/dist
   deploy:
     needs: build
     runs-on: ubuntu-latest

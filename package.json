@@ -1,15 +1,52 @@
 {
-  "name": "palette-studio",
-  "private": true,
-  "version": "0.1.0",
-  "description": "TDesign 犀鸟鸟 2026 实战：感知均匀的色阶引擎与演示站",
+  "name": "@palette-studio/core",
+  "version": "1.0.0",
+  "description": "感知均匀的 10 级色阶生成引擎（OKLCH），支持暗色模式与中性色阶，输出 TDesign Design Token",
+  "license": "MIT",
+  "keywords": [
+    "color",
+    "palette",
+    "oklch",
+    "design-token",
+    "tdesign",
+    "dark-mode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xy200303/palette-studio.git"
+  },
+  "homepage": "https://tdesign-demo.xyun.dev",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "dev": "pnpm --filter demo dev"
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench": "node scripts/bench.mjs",
+    "dev": "pnpm --filter demo dev",
+    "build:demo": "pnpm --filter demo build",
+    "preview": "pnpm --filter demo preview"
+  },
+  "dependencies": {
+    "apca-w3": "^0.1.9",
+    "culori": "^4.0.1"
   },
   "devDependencies": {
+    "@types/culori": "^4.0.1",
+    "delta-e": "^0.0.8",
+    "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
   },

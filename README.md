@@ -3,21 +3,45 @@
 > 腾讯犀鸟鸟开源计划 2026 · TDesign 实战 Task 01
 > 输入任意主色，在 OKLCH 感知均匀色彩空间中生成 10 级、由浅到深、过渡自然的完整主色阶，并输出整套 TDesign Design Token。
 
+本仓库即 npm 包 `@palette-studio/core` 本体（可直接作为依赖导入），`demo/` 为调用示例与交互式演示站。
+
+**在线演示**：https://tdesign-demo.xyun.dev ｜ **Task 02 产品仓库**：[xy200303/shise-dongfang](https://github.com/xy200303/shise-dongfang)（https://shise.xyun.dev ）
+
+## 作为依赖使用
+
+```bash
+# 直接从 GitHub 安装（包即仓库根）
+pnpm add github:xy200303/palette-studio
+```
+
+```ts
+import { generateTheme } from '@palette-studio/core';
+
+const theme = generateTheme('#0052d9');
+// theme.colors        10 级亮色主色阶
+// theme.darkColors    10 级暗色主色阶（重新生成，非反转）
+// theme.neutral       14 级 × 亮暗两套中性色阶
+// theme.tokens        完整 TDesign Design Token（亮/暗两张表）
+```
+
 ## 仓库结构
 
 ```
 palette-studio/
-├── packages/core/     # @palette-studio/core —— 色阶引擎（TypeScript）
-└── apps/demo/         # 交互式演示站（Vite + React + TDesign React）
+├── src/        # 引擎源码（本包 @palette-studio/core）
+├── tests/      # 单元测试（含 Sharma CIEDE2000 标准向量校验）
+├── scripts/    # bench.mjs 性能基准
+└── demo/       # 调用示例：交互式演示站（Vite + React + TDesign React）
 ```
 
 ## 快速开始
 
 ```bash
 pnpm install
-pnpm --filter @palette-studio/core build   # 构建引擎
-pnpm --filter @palette-studio/core test    # 运行单元测试
-pnpm dev                                   # 启动演示站
+pnpm build        # 构建引擎 → dist/
+pnpm test         # 运行单元测试（44 例）
+pnpm bench        # 性能基准
+pnpm dev          # 启动演示站（demo/）
 ```
 
 ## 算法设计
@@ -47,14 +71,14 @@ pnpm dev                                   # 启动演示站
 
 ## 测试与校验
 
-`pnpm --filter @palette-studio/core test`（44 例）分两层：
+`pnpm test`（44 例）分两层：
 
 - **行为测试**：单调性、主色保留、边界输入、token 全集、memoize、H-K 补偿、hue arc、usageHint 等
 - **标准向量校验**（`tests/validation.test.ts`）：CIEDE2000 对照 Sharma et al. (2005) 公开测试向量（标准答案 2.0425），并与独立实现 `delta-e` 交叉验证 8 组颜色对（±0.01）；APCA 对照官方参考实现的文档锚点值（白字黑底 Lc ≈ −107.9）。过程中还捕获了一个真实陷阱：culori 默认 Lab 是 D50 白点，与参考向量的 D65 不一致会导致 0.39 的偏差。
 
 ## 性能
 
-生成结果按（归一化输入色 + 选项）全链路 memoize。`pnpm --filter @palette-studio/core bench` 实测（Node 24）：
+生成结果按（归一化输入色 + 选项）全链路 memoize。`pnpm bench` 实测（Node 24）：
 
 | 场景 | 吞吐 |
 |------|------|
