@@ -9,18 +9,12 @@
 
 ## 作为依赖使用
 
+构建产物 `dist/` 已随仓库发布，安装即可用，无需任何构建脚本或额外配置：
+
 ```bash
-# 直接从 GitHub 安装（包即仓库根，安装时自动构建 dist）
 npm install github:xy200303/shise-engine
-# 或 pnpm（需在项目 pnpm-workspace.yaml 中将本包加入构建白名单）
+# 或
 pnpm add github:xy200303/shise-engine
-```
-
-pnpm 出于安全策略默认拦截 git 依赖的构建脚本，在项目的 `pnpm-workspace.yaml` 加一行即可：
-
-```yaml
-onlyBuiltDependencies:
-  - "shise-engine"
 ```
 
 ```ts
