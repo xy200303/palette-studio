@@ -32,7 +32,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "prepare": "tsup",
     "test": "vitest run",
     "test:watch": "vitest",
     "bench": "node scripts/bench.mjs",
