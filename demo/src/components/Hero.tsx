@@ -1,5 +1,5 @@
 import { ColorPicker, MessagePlugin, Slider, Switch } from 'tdesign-react';
-import { bestTextOn } from '@palette-studio/core';
+import { bestTextOn } from 'shise-engine';
 import { PRESETS } from '../presets';
 
 interface Props {

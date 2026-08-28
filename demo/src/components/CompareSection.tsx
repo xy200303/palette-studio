@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Color } from 'tvision-color';
-import type { ThemeResult } from '@palette-studio/core';
+import type { ThemeResult } from 'shise-engine';
 import { ColorStrip } from './PaletteSection';
 
 interface Props {

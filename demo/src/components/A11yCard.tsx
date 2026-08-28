@@ -5,7 +5,7 @@ import {
   contrastRatio,
   wcagLevel,
   type ThemeResult,
-} from '@palette-studio/core';
+} from 'shise-engine';
 
 /** 解析 token 值：跟进 var(--xxx) 引用（最多 5 层），取到实际颜色 */
 function resolveToken(tokens: Record<string, string>, key: string): string | null {

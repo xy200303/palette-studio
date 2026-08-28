@@ -3,7 +3,7 @@
 > 腾讯犀鸟鸟开源计划 2026 · TDesign 实战 Task 01
 > 输入任意主色，在 OKLCH 感知均匀色彩空间中生成 10 级、由浅到深、过渡自然的完整主色阶，并输出整套 TDesign Design Token。
 
-本仓库即 npm 包 `@palette-studio/core` 本体（可直接作为依赖导入），`demo/` 为调用示例与交互式演示站。
+本仓库即 npm 包 `shise-engine` 本体（可直接作为依赖导入），`demo/` 为调用示例与交互式演示站。
 
 **在线演示**：https://tdesign-demo.xyun.dev ｜ **Task 02 产品仓库**：[xy200303/shise-dongfang](https://github.com/xy200303/shise-dongfang)（https://shise.xyun.dev ）
 
@@ -11,20 +11,20 @@
 
 ```bash
 # 直接从 GitHub 安装（包即仓库根，安装时自动构建 dist）
-npm install github:xy200303/palette-studio
+npm install github:xy200303/shise-engine
 # 或 pnpm（需在项目 pnpm-workspace.yaml 中将本包加入构建白名单）
-pnpm add github:xy200303/palette-studio
+pnpm add github:xy200303/shise-engine
 ```
 
 pnpm 出于安全策略默认拦截 git 依赖的构建脚本，在项目的 `pnpm-workspace.yaml` 加一行即可：
 
 ```yaml
 onlyBuiltDependencies:
-  - "@palette-studio/core"
+  - "shise-engine"
 ```
 
 ```ts
-import { generateTheme } from '@palette-studio/core';
+import { generateTheme } from 'shise-engine';
 
 const theme = generateTheme('#0052d9');
 // theme.colors        10 级亮色主色阶
@@ -36,8 +36,8 @@ const theme = generateTheme('#0052d9');
 ## 仓库结构
 
 ```
-palette-studio/
-├── src/        # 引擎源码（本包 @palette-studio/core）
+shise-engine/
+├── src/        # 引擎源码（本包 shise-engine）
 ├── tests/      # 单元测试（含 Sharma CIEDE2000 标准向量校验）
 ├── scripts/    # bench.mjs 性能基准
 └── demo/       # 调用示例：交互式演示站（Vite + React + TDesign React）
@@ -100,7 +100,7 @@ pnpm dev          # 启动演示站（demo/）
 ## API 速览
 
 ```ts
-import { generatePalette, generateNeutral, generateTheme, toTDesignTokens, tokensToCss } from '@palette-studio/core';
+import { generatePalette, generateNeutral, generateTheme, toTDesignTokens, tokensToCss } from 'shise-engine';
 
 const { colors, primaryIndex, darkColors, darkPrimaryIndex } = generatePalette('#0052d9');
 const neutral = generateNeutral('#0052d9');                 // 14 级 × 亮暗两套
@@ -108,7 +108,7 @@ const tokens = toTDesignTokens('#0052d9');                  // 完整 TDesign De
 const theme = generateTheme('#0052d9');                     // 以上全部，一步到位
 
 // 对比度双轨校验
-import { contrastRatio, apcaContrast } from '@palette-studio/core';
+import { contrastRatio, apcaContrast } from 'shise-engine';
 contrastRatio('#0052d9', '#ffffff');  // WCAG 2.x，1~21
 apcaContrast('#ffffff', '#0052d9');   // APCA（WCAG 3 草案）Lc，极性敏感
 

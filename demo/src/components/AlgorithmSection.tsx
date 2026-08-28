@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { converter } from 'culori';
-import type { ThemeResult } from '@palette-studio/core';
+import type { ThemeResult } from 'shise-engine';
 
 const toOklch = converter('oklch');
 

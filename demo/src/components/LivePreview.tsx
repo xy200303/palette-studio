@@ -11,7 +11,7 @@ import {
   Table,
   Tag,
 } from 'tdesign-react';
-import type { ThemeResult } from '@palette-studio/core';
+import type { ThemeResult } from 'shise-engine';
 import A11yCard from './A11yCard';
 
 const tableData = [

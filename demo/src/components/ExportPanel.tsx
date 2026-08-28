@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Button, MessagePlugin } from 'tdesign-react';
-import { tokensToCss, type ThemeResult } from '@palette-studio/core';
+import { tokensToCss, type ThemeResult } from 'shise-engine';
 
 type Format = 'css' | 'less' | 'tailwind' | 'json';
 

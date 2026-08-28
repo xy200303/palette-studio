@@ -33,7 +33,7 @@ export interface BaseColor {
 export function resolveBase(input: string): BaseColor {
   const parsed = parse(input);
   if (!parsed) {
-    throw new Error(`[palette-studio] 无法解析颜色: "${input}"`);
+    throw new Error(`[shise-engine] 无法解析颜色: "${input}"`);
   }
   const ok = toOklch(parsed) as Oklch;
   const c = ok.c ?? 0;

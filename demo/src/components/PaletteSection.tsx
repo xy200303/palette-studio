@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MessagePlugin } from 'tdesign-react';
-import { apcaContrast, bestTextOn, contrastRatio, usageHint, wcagLevel } from '@palette-studio/core';
+import { apcaContrast, bestTextOn, contrastRatio, usageHint, wcagLevel } from 'shise-engine';
 import {
   converter,
   filterDeficiencyDeuter,

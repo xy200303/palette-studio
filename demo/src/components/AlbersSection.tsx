@@ -1,4 +1,4 @@
-import type { ThemeResult } from '@palette-studio/core';
+import type { ThemeResult } from 'shise-engine';
 
 interface Props {
   theme: ThemeResult;

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { generateTheme } from '@palette-studio/core';
+import { generateTheme } from 'shise-engine';
 import Hero from './components/Hero';
 import PaletteSection from './components/PaletteSection';
 import NeutralStrip from './components/NeutralStrip';
@@ -96,7 +96,7 @@ export default function App() {
             </div>
           </div>
           <div className="mono">
-            @palette-studio/core · 腾讯犀牛鸟开源计划参赛作品
+            shise-engine · 腾讯犀牛鸟开源计划参赛作品
           </div>
         </div>
       </footer>
