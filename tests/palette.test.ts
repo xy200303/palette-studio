@@ -240,7 +240,9 @@ describe('hue arc / chromaBoost / memoize / a11y 推荐', () => {
   it('accessibleTextLevel：返回白底正文可用的最浅达标级（"第 N 级起"）', () => {
     const { colors } = generatePalette('#0052d9');
     const idx = accessibleTextLevel(colors, '#ffffff');
-    expect(idx).toBeGreaterThanOrEqual(6);
+    // 下界是防退化护栏：若浅到第 1~4 级就能当正文，说明色阶整体过深、层次被压扁。
+    // 真正的语义（「最浅达标级」）由下面两条断言保证，不依赖具体级数。
+    expect(idx).toBeGreaterThanOrEqual(4);
     expect(Math.abs(apcaContrast(colors[idx], '#ffffff'))).toBeGreaterThanOrEqual(75);
     // 语义是「最浅达标级」：前一级必然不达标
     expect(Math.abs(apcaContrast(colors[idx - 1], '#ffffff'))).toBeLessThan(75);

@@ -44,29 +44,31 @@ function hkHueWeight(h) {
   return 0.35 + 0.65 * Math.exp(-((d / 110) ** 2));
 }
 var HK_STRENGTH = 0.022;
-function hkAdjustment(h, chromaRatio) {
-  return HK_STRENGTH * Math.min(Math.max(chromaRatio, 0), 1) * hkHueWeight(h);
+var HK_FULL_CHROMA = 0.15;
+function hkAdjustment(h, chroma) {
+  const chromaFactor = Math.min(Math.max(chroma, 0) / HK_FULL_CHROMA, 1);
+  return HK_STRENGTH * chromaFactor * hkHueWeight(h);
 }
 
 // src/curves.ts
-var CHROMA_BASE = [0.2, 0.34, 0.5, 0.66, 0.82, 0.96, 1.05, 0.98, 0.85, 0.66];
+var CHROMA_BASE = [0.34, 0.48, 0.62, 0.76, 0.88, 0.98, 1.05, 1, 0.9, 0.76];
 function scale(k) {
   return CHROMA_BASE.map((v) => +(v * k).toFixed(3));
 }
 var HUE_ZONES = [
-  { name: "red", range: [345, 15], lLight: 0.965, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(1), chromaCap: 0.24, darkChroma: 0.9, hueShift: -4 },
-  { name: "orange", range: [15, 45], lLight: 0.965, lDeep: 0.35, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.2, darkChroma: 0.88, hueShift: -7 },
-  { name: "yellow", range: [45, 75], lLight: 0.97, lDeep: 0.42, ease: [0.38, 0.78], chromaScale: scale(0.9), chromaCap: 0.17, darkChroma: 0.78, hueShift: -14 },
-  { name: "lemon", range: [75, 95], lLight: 0.97, lDeep: 0.45, ease: [0.4, 0.8], chromaScale: scale(0.85), chromaCap: 0.16, darkChroma: 0.75, hueShift: -12 },
-  { name: "lime", range: [95, 125], lLight: 0.97, lDeep: 0.42, ease: [0.4, 0.78], chromaScale: scale(0.9), chromaCap: 0.2, darkChroma: 0.82, hueShift: -8 },
-  { name: "green", range: [125, 160], lLight: 0.965, lDeep: 0.36, ease: [0.36, 0.76], chromaScale: scale(1), chromaCap: 0.21, darkChroma: 0.9, hueShift: 4 },
-  { name: "mint", range: [160, 185], lLight: 0.965, lDeep: 0.34, ease: [0.36, 0.76], chromaScale: scale(0.95), chromaCap: 0.18, darkChroma: 0.86, hueShift: 5 },
-  { name: "cyan", range: [185, 215], lLight: 0.965, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.16, darkChroma: 0.88, hueShift: 6 },
-  { name: "blue", range: [215, 260], lLight: 0.965, lDeep: 0.27, ease: [0.33, 0.74], chromaScale: scale(1), chromaCap: 0.2, darkChroma: 0.95, hueShift: 8 },
-  { name: "purple", range: [260, 300], lLight: 0.965, lDeep: 0.28, ease: [0.33, 0.74], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.92, hueShift: 6 },
-  { name: "pink", range: [300, 345], lLight: 0.965, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.9, hueShift: 8 }
+  { name: "red", range: [345, 15], lLight: 0.92, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(1), chromaCap: 0.24, darkChroma: 0.9, hueShift: -4 },
+  { name: "orange", range: [15, 45], lLight: 0.92, lDeep: 0.35, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.2, darkChroma: 0.88, hueShift: -7 },
+  { name: "yellow", range: [45, 75], lLight: 0.925, lDeep: 0.42, ease: [0.38, 0.78], chromaScale: scale(0.9), chromaCap: 0.17, darkChroma: 0.78, hueShift: -14 },
+  { name: "lemon", range: [75, 95], lLight: 0.925, lDeep: 0.45, ease: [0.4, 0.8], chromaScale: scale(0.85), chromaCap: 0.16, darkChroma: 0.75, hueShift: -12 },
+  { name: "lime", range: [95, 125], lLight: 0.925, lDeep: 0.42, ease: [0.4, 0.78], chromaScale: scale(0.9), chromaCap: 0.2, darkChroma: 0.82, hueShift: -8 },
+  { name: "green", range: [125, 160], lLight: 0.92, lDeep: 0.36, ease: [0.36, 0.76], chromaScale: scale(1), chromaCap: 0.21, darkChroma: 0.9, hueShift: 4 },
+  { name: "mint", range: [160, 185], lLight: 0.92, lDeep: 0.34, ease: [0.36, 0.76], chromaScale: scale(0.95), chromaCap: 0.18, darkChroma: 0.86, hueShift: 5 },
+  { name: "cyan", range: [185, 215], lLight: 0.92, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.16, darkChroma: 0.88, hueShift: 6 },
+  { name: "blue", range: [215, 260], lLight: 0.92, lDeep: 0.27, ease: [0.33, 0.74], chromaScale: scale(1), chromaCap: 0.2, darkChroma: 0.95, hueShift: 8 },
+  { name: "purple", range: [260, 300], lLight: 0.92, lDeep: 0.28, ease: [0.33, 0.74], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.92, hueShift: 6 },
+  { name: "pink", range: [300, 345], lLight: 0.92, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.9, hueShift: 8 }
 ];
-var DARK_L_LIGHT = 0.2;
+var DARK_L_LIGHT = 0.27;
 var DARK_L_DEEP = 0.9;
 var DARK_CHROMA_SCALE = [0.3, 0.42, 0.56, 0.7, 0.85, 0.97, 1.04, 0.98, 0.86, 0.7];
 var DARK_EASE = [0.3, 0.72];
@@ -124,11 +126,8 @@ function buildScale(zone, h, baseChroma, dark) {
     }
     const hi = h + drift;
     let c = chromaBudget(baseChroma, factor, zone.chromaCap, l, hi);
-    const envelope = maxChroma(l, hi);
-    if (envelope > 0) {
-      l = Math.min(Math.max(l - hkAdjustment(hi, c / envelope), 0.02), 0.995);
-      c = chromaBudget(baseChroma, factor, zone.chromaCap, l, hi);
-    }
+    l = Math.min(Math.max(l - hkAdjustment(hi, c), 0.02), 0.995);
+    c = chromaBudget(baseChroma, factor, zone.chromaCap, l, hi);
     levels.push(clampChroma({ mode: "oklch", l, c, h: hi }, "oklch"));
   }
   return ensurePerceptibleSteps(levels, dark).map((c) => formatHex(c));

@@ -32,29 +32,43 @@ export interface HueZone {
   hueShift: number;
 }
 
-/** 亮→暗通用的彩度节奏：两端收敛，第 7 级（index 6）最饱满 */
-const CHROMA_BASE = [0.2, 0.34, 0.5, 0.66, 0.82, 0.96, 1.05, 0.98, 0.85, 0.66];
+/**
+ * 亮→暗通用的彩度节奏：两端收敛，第 7 级（index 6）最饱满。
+ *
+ * 浅级（index 0~1）系数不再压到 0.2：低彩度主色（月白、天青、石墨一类）
+ * 会退化成 C≈0.005 的纯灰，视觉上即「浅色发飘」——淡而不着色。
+ * Radix / Tailwind 的浅级是「有明确色相的淡色」而非灰白，故抬到 0.34。
+ * 深级（index 8~9）同步从 0.66/0.85 抬到 0.76/0.90，缓解最深两级的 ΔE 衰减。
+ */
+const CHROMA_BASE = [0.34, 0.48, 0.62, 0.76, 0.88, 0.98, 1.05, 1.0, 0.9, 0.76];
 
 function scale(k: number): number[] {
   return CHROMA_BASE.map((v) => +(v * k).toFixed(3));
 }
 
 export const HUE_ZONES: HueZone[] = [
-  { name: 'red', range: [345, 15], lLight: 0.965, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(1), chromaCap: 0.24, darkChroma: 0.9, hueShift: -4 },
-  { name: 'orange', range: [15, 45], lLight: 0.965, lDeep: 0.35, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.2, darkChroma: 0.88, hueShift: -7 },
-  { name: 'yellow', range: [45, 75], lLight: 0.97, lDeep: 0.42, ease: [0.38, 0.78], chromaScale: scale(0.9), chromaCap: 0.17, darkChroma: 0.78, hueShift: -14 },
-  { name: 'lemon', range: [75, 95], lLight: 0.97, lDeep: 0.45, ease: [0.4, 0.8], chromaScale: scale(0.85), chromaCap: 0.16, darkChroma: 0.75, hueShift: -12 },
-  { name: 'lime', range: [95, 125], lLight: 0.97, lDeep: 0.42, ease: [0.4, 0.78], chromaScale: scale(0.9), chromaCap: 0.2, darkChroma: 0.82, hueShift: -8 },
-  { name: 'green', range: [125, 160], lLight: 0.965, lDeep: 0.36, ease: [0.36, 0.76], chromaScale: scale(1), chromaCap: 0.21, darkChroma: 0.9, hueShift: 4 },
-  { name: 'mint', range: [160, 185], lLight: 0.965, lDeep: 0.34, ease: [0.36, 0.76], chromaScale: scale(0.95), chromaCap: 0.18, darkChroma: 0.86, hueShift: 5 },
-  { name: 'cyan', range: [185, 215], lLight: 0.965, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.16, darkChroma: 0.88, hueShift: 6 },
-  { name: 'blue', range: [215, 260], lLight: 0.965, lDeep: 0.27, ease: [0.33, 0.74], chromaScale: scale(1), chromaCap: 0.2, darkChroma: 0.95, hueShift: 8 },
-  { name: 'purple', range: [260, 300], lLight: 0.965, lDeep: 0.28, ease: [0.33, 0.74], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.92, hueShift: 6 },
-  { name: 'pink', range: [300, 345], lLight: 0.965, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.9, hueShift: 8 },
+  { name: 'red', range: [345, 15], lLight: 0.92, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(1), chromaCap: 0.24, darkChroma: 0.9, hueShift: -4 },
+  { name: 'orange', range: [15, 45], lLight: 0.92, lDeep: 0.35, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.2, darkChroma: 0.88, hueShift: -7 },
+  { name: 'yellow', range: [45, 75], lLight: 0.925, lDeep: 0.42, ease: [0.38, 0.78], chromaScale: scale(0.9), chromaCap: 0.17, darkChroma: 0.78, hueShift: -14 },
+  { name: 'lemon', range: [75, 95], lLight: 0.925, lDeep: 0.45, ease: [0.4, 0.8], chromaScale: scale(0.85), chromaCap: 0.16, darkChroma: 0.75, hueShift: -12 },
+  { name: 'lime', range: [95, 125], lLight: 0.925, lDeep: 0.42, ease: [0.4, 0.78], chromaScale: scale(0.9), chromaCap: 0.2, darkChroma: 0.82, hueShift: -8 },
+  { name: 'green', range: [125, 160], lLight: 0.92, lDeep: 0.36, ease: [0.36, 0.76], chromaScale: scale(1), chromaCap: 0.21, darkChroma: 0.9, hueShift: 4 },
+  { name: 'mint', range: [160, 185], lLight: 0.92, lDeep: 0.34, ease: [0.36, 0.76], chromaScale: scale(0.95), chromaCap: 0.18, darkChroma: 0.86, hueShift: 5 },
+  { name: 'cyan', range: [185, 215], lLight: 0.92, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.16, darkChroma: 0.88, hueShift: 6 },
+  { name: 'blue', range: [215, 260], lLight: 0.92, lDeep: 0.27, ease: [0.33, 0.74], chromaScale: scale(1), chromaCap: 0.2, darkChroma: 0.95, hueShift: 8 },
+  { name: 'purple', range: [260, 300], lLight: 0.92, lDeep: 0.28, ease: [0.33, 0.74], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.92, hueShift: 6 },
+  { name: 'pink', range: [300, 345], lLight: 0.92, lDeep: 0.32, ease: [0.35, 0.75], chromaScale: scale(0.95), chromaCap: 0.22, darkChroma: 0.9, hueShift: 8 },
 ];
 
-/** 暗色模式：明度区间整体镜像（第 1 级为深色底上的弱着色，第 10 级为亮色强调） */
-export const DARK_L_LIGHT = 0.2;
+/**
+ * 暗色模式明度下界。
+ *
+ * 原为 0.20，与暗色页面底（neutral.darkColors[0]，L≈0.16）仅差 0.03——
+ * --td-brand-color-light（Tag/Alert/选中态的浅背景）在深底上实测 WCAG 1.05、
+ * APCA Lc 0，等于完全不可见。抬到 0.27 后与页面底拉开约 0.11 的明度差，
+ * 低端层次可辨，同时仍保留 0.27→0.9 的可用跨度。
+ */
+export const DARK_L_LIGHT = 0.27;
 export const DARK_L_DEEP = 0.9;
 
 /** 暗色模式彩度节奏：中级之后保持饱满，保证深色底上的辨识度 */

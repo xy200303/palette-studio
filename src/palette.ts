@@ -69,12 +69,10 @@ function buildScale(zone: HueZone, h: number, baseChroma: number, dark: boolean)
     const hi = h + drift;
     // 设计阶段即按 Cmax(L, H) 色域包络规划彩度，避免事后 clamp 导致相邻级塌方
     let c = chromaBudget(baseChroma, factor, zone.chromaCap, l, hi);
-    // H-K 效应补偿：高彩度级看起来更亮，把明度微微下压让感知步进均匀
-    const envelope = maxChroma(l, hi);
-    if (envelope > 0) {
-      l = Math.min(Math.max(l - hkAdjustment(hi, c / envelope), 0.02), 0.995);
-      c = chromaBudget(baseChroma, factor, zone.chromaCap, l, hi);
-    }
+    // H-K 效应补偿：高彩度级看起来更亮，把明度微微下压让感知步进均匀。
+    // 按绝对彩度加权（见 hk.ts），浅/深级不会因色域包络收窄而被过度压暗。
+    l = Math.min(Math.max(l - hkAdjustment(hi, c), 0.02), 0.995);
+    c = chromaBudget(baseChroma, factor, zone.chromaCap, l, hi);
     levels.push(clampChroma({ mode: 'oklch', l, c, h: hi }, 'oklch') as Oklch);
   }
   return ensurePerceptibleSteps(levels, dark).map((c) => formatHex(c));
