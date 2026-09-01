@@ -140,7 +140,9 @@ interface HueZone {
 declare const HUE_ZONES: HueZone[];
 declare function findZone(hue: number): HueZone;
 
+declare function maxChroma(l: number, h: number): number;
+
 /** 一步到位：主色阶 + 暗色色阶 + 中性色阶 + TDesign Token */
 declare function generateTheme(input: string, options?: PaletteOptions): ThemeResult;
 
-export { HUE_ZONES, type HarmonyResult, type NeutralResult, type PaletteOptions, type PaletteResult, type TDesignThemeTokens, type ThemeResult, type UsageRole, type WcagLevel, accessibleTextLevel, apcaContrast, bestTextOn, contrastRatio, findZone, generateNeutral, generatePalette, generateTheme, harmonyColors, resolveBase, toTDesignTokens, tokensToCss, usageHint, wcagLevel };
+export { HUE_ZONES, type HarmonyResult, type NeutralResult, type PaletteOptions, type PaletteResult, type TDesignThemeTokens, type ThemeResult, type UsageRole, type WcagLevel, accessibleTextLevel, apcaContrast, bestTextOn, contrastRatio, findZone, generateNeutral, generatePalette, generateTheme, harmonyColors, maxChroma, resolveBase, toTDesignTokens, tokensToCss, usageHint, wcagLevel };

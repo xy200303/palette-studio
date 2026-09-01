@@ -507,6 +507,7 @@ export {
   generatePalette,
   generateTheme,
   harmonyColors,
+  maxChroma,
   resolveBase,
   toTDesignTokens,
   tokensToCss,
